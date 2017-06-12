@@ -1,6 +1,9 @@
 <template>
     <div id="search">
-        <h1>FIND A BOOK</h1>
+        <h1 id="fun-header">FIND A BOOK</h1>
+        <audio ref="player">
+            <source v-bind:src="track">
+        </audio>
         <div class="search-form">
             <input v-model="searchTerm" class="search-input">
             <button v-on:click="search()" class="search-button">SEARCH</button>
@@ -29,8 +32,12 @@ export default {
     data () {
         return {
             searchTerm: '',
-            searchResults: []
+            searchResults: [],
+            track: 'https://upload.wikimedia.org/wikipedia/en/4/45/ACDC_-_Back_In_Black-sample.ogg',
         };
+    },
+    mounted: function() {
+        this.$refs.player.play();
     },
     methods : {
         search() {
@@ -59,6 +66,13 @@ export default {
 </script>
 
 <style scoped>
+    #fun-header {
+        animation: colorchange 15s; 
+        -webkit-animation: colorchange 15s; 
+        animation-iteration-count: infinite;
+        padding: 10px;
+    }
+
     .search-form {
         display: flex;
         font-family: inherit;
@@ -86,5 +100,27 @@ export default {
 
     .search-results {
         margin-top: 1em;
+    }
+
+    @keyframes colorchange
+    {
+        0%   {color: hotpink;}
+        12.5%{color: yellow;}
+        25%  {color: lightstateblue;}
+        37.5%{color: grey;}
+        50%  {color: turquoise1;}
+        62.5%{color: tomato;}
+        75%  {color: palegreen;}
+        87.5%{color: cadmiumyellow;}
+        100% {color: hotpink;}
+    }
+
+    @-webkit-keyframes colorchange 
+    {
+        0%   {color: hotpink;}
+        25%  {color: lightstateblue;}
+        50%  {color: turquoise1;}
+        75%  {color: palegreen;}
+        100% {color: hotpink;}
     }
 </style>
