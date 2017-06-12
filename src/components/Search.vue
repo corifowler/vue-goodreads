@@ -5,7 +5,7 @@
             <input v-model="searchTerm" class="search-input">
             <button v-on:click="search()" class="search-button">SEARCH</button>
         </div>
-        <div v-if="searchResults.length" class="search-results">
+        <div v-if="searchResults" class="search-results">
             <searchResult v-for="(result, index) in searchResults" v-bind:key="index" :result="result"></searchResult>
         </div>
         <div v-else>
@@ -19,6 +19,7 @@ import Vue from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import * as X2JS from 'x2js';
+import { mapGetters, mapActions } from 'vuex';
 
 import searchResult from './SearchResult.vue';
 
@@ -29,31 +30,44 @@ export default {
     data () {
         return {
             searchTerm: '',
-            searchResults: []
+            apiSearchResults: []
         };
     },
+    computed: mapGetters([
+        'searchResults'
+    ]),
     methods : {
         search() {
-            console.log('st', this.searchTerm);
             const 
                 apiKey = 'apYQXz3HlYOZc3KQYZL7Q',
                 apiUrl = `https://www.goodreads.com/search/index.xml?key=${apiKey}&q=${this.searchTerm}`;
+            
+            this.clearSearchResults();
 
             Vue.axios.get(apiUrl).then(response => {
                 let x2js = new X2JS();
                 let res = x2js.xml2js(response.data);
                 // let resDOM = new DOMParser().parseFromString(response.data, 'text/xml');
                 // let res = xmlToJson(resDOM);
-                this.searchResults = res.GoodreadsResponse.search.results.work;
-                console.log(this.searchResults);
+                this.apiSearchResults = res.GoodreadsResponse.search.results.work;
+                this.updateSearchResults(this.apiSearchResults);
             })
             .catch(err => {
-                console.log('e', err);
+                this.apiSearchResults = [];
             });
+        },
+        updateSearchResults(results) {
+            this.$store.dispatch('updateSearchResults', results);
+        },
+        clearSearchResults() {
+            this.$store.dispatch('clearSearchResults');
         }
     },
     components: {
         searchResult
+    },
+    destroyed() {
+        this.clearSearchResults();
     }
 }
 </script>

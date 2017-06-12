@@ -3,6 +3,11 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
+export const
+    UPDATE_SEARCH_RESULTS = 'UPDATE_SEARCH_RESULTS',
+    DELETE_SEARCH_RESULTS = 'DELETE_SEARCH_RESULTS',
+    ADD_BOOK = 'ADD_BOOK';
+
 export const store = new Vuex.Store({
     state: {
         searchResults: [],
@@ -19,7 +24,14 @@ export const store = new Vuex.Store({
             state.books.push(newBook);
         }
     },
-    actions: {},
+    actions: {
+        updateSearchResults({ commit }, searchResults) {
+            commit('UPDATE_SEARCH_RESULTS', searchResults);
+        },
+        clearSearchResults({ commit }) {
+            commit('DELETE_SEARCH_RESULTS');
+        }
+    },
     getters: {
         books: state => state.books,
         searchResults: state => state.searchResults
