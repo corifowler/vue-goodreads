@@ -18,7 +18,6 @@
 import Vue from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
-import { xmlToJson }from '../helpers/xmlToJson.js';
 import * as X2JS from 'x2js';
 
 import searchResult from './SearchResult.vue';
@@ -72,7 +71,7 @@ export default {
     }
 
     .search-input {
-        width: 20em;
+        width: 38em;
         border: 1px solid #35495e;
         border-radius: 8px;
         padding: 1em;
@@ -83,5 +82,9 @@ export default {
         background: none;
         border: none;
         color: #35495e;
+    }
+
+    .search-results {
+        margin-top: 1em;
     }
 </style>
