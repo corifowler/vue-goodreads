@@ -8,6 +8,7 @@
 
 <script>
 import toolbar from './components/Toolbar.vue';
+
 export default {
   name: 'app',
   components: {

@@ -1,7 +1,16 @@
 <template>
     <div id="search">
-        <h1>SEARCH</h1>
-        <button v-on:click="search()">SEARCH FOR HUNGER GAMES</button>
+        <h1>FIND A BOOK</h1>
+        <div class="search-form">
+            <input v-model="searchTerm" class="search-input">
+            <button v-on:click="search()" class="search-button">SEARCH</button>
+        </div>
+        <div v-if="searchResults.length" class="search-results">
+            <searchResult v-for="(result, index) in searchResults" v-bind:key="index" :result="result"></searchResult>
+        </div>
+        <div v-else>
+            NO RESULTS
+        </div>
     </div>
 </template>
 
@@ -9,8 +18,10 @@
 import Vue from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
-import { xmlToJson }from '../helpers/xmlToJson.js'
+import { xmlToJson }from '../helpers/xmlToJson.js';
 import * as X2JS from 'x2js';
+
+import searchResult from './SearchResult.vue';
 
 Vue.use(VueAxios, axios);
 
@@ -18,12 +29,13 @@ export default {
     name: 'search',
     data () {
         return {
-            searchTerm: 'hunger',
+            searchTerm: '',
             searchResults: []
         };
     },
     methods : {
         search() {
+            console.log('st', this.searchTerm);
             const 
                 apiKey = 'apYQXz3HlYOZc3KQYZL7Q',
                 apiUrl = `https://www.goodreads.com/search/index.xml?key=${apiKey}&q=${this.searchTerm}`;
@@ -40,10 +52,36 @@ export default {
                 console.log('e', err);
             });
         }
+    },
+    components: {
+        searchResult
     }
 }
 </script>
 
 <style scoped>
+    .search-form {
+        display: flex;
+        font-family: inherit;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .search-form button, input {
+        margin: 0 1em;
+    }
 
+    .search-input {
+        width: 20em;
+        border: 1px solid #35495e;
+        border-radius: 8px;
+        padding: 1em;
+        color: #35495e;
+    }
+
+    .search-button {
+        background: none;
+        border: none;
+        color: #35495e;
+    }
 </style>
