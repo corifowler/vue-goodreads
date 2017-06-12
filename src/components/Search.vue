@@ -18,7 +18,8 @@ export default {
     name: 'search',
     data () {
         return {
-            searchTerm: 'hunger'
+            searchTerm: 'hunger',
+            searchResults: []
         };
     },
     methods : {
@@ -32,7 +33,8 @@ export default {
                 let res = x2js.xml2js(response.data);
                 // let resDOM = new DOMParser().parseFromString(response.data, 'text/xml');
                 // let res = xmlToJson(resDOM);
-                console.log('res', res);
+                this.searchResults = res.GoodreadsResponse.search.results.work;
+                console.log(this.searchResults);
             })
             .catch(err => {
                 console.log('e', err);
