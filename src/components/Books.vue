@@ -1,15 +1,15 @@
 <template>
-    <div id="search">
-        <h1>SEARCH</h1>
+    <div id="books">
+        <div>BOOKS</div>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'search',
+    name: 'books',
     data () {
         return {
-
+            
         };
     }
 }
