@@ -5,13 +5,18 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
     name: 'books',
     data () {
         return {
             
         };
-    }
+    },
+    computed: mapGetters([
+        'books'
+    ])
 }
 </script>
 

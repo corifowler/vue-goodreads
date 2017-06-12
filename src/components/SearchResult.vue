@@ -1,13 +1,13 @@
 <template>
-    <div v-on:click="getBookInfo()" id="searchResult">
+    <div id="searchResult">
         <img v-bind:src="searchResult.image_url" class="result-image">
         <div class="result-info">
             <div class="title">{{ searchResult.title }}</div>
             <div class="author">{{ searchResult.author.name }}</div>
         </div>
         <div class="button-options">
-            <button>MORE INFO</button>
-            <button>ADD TO MY BOOKS</button>
+            <button v-on:click="getBookInfo()">MORE INFO</button>
+            <button v-on:click="addToMyBooks()">ADD TO MY BOOKS</button>
         </div>
     </div>
 </template>
@@ -43,6 +43,9 @@ export default {
             .catch(err => {
                 console.log('e', err);
             });     
+        },
+        addToMyBooks() {
+            
         }
     }
 }

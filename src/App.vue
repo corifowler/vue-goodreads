@@ -7,13 +7,15 @@
 </template>
 
 <script>
+import { store } from './stores/index.js';
 import toolbar from './components/Toolbar.vue';
 
 export default {
   name: 'app',
   components: {
     toolbar
-  }
+  },
+  store
 }
 </script>
 
