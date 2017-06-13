@@ -21,7 +21,7 @@ import VueAxios from 'vue-axios';
 import * as X2JS from 'x2js';
 import { mapGetters, mapActions } from 'vuex';
 
-import searchResult from './SearchResult.vue';
+import searchResult from './SearchResult';
 
 Vue.use(VueAxios, axios);
 

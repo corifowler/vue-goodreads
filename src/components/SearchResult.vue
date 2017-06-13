@@ -3,7 +3,7 @@
         <img v-bind:src="searchResult.image_url" class="result-image">
         <div class="result-info">
             <div class="title">{{ searchResult.title }}</div>
-            <div class="author">{{ searchResult.author.name }}</div>
+            <div class="author">by {{ searchResult.author.name }}</div>
         </div>
         <div class="button-options">
             <button v-on:click="getBookInfo()">MORE INFO</button>
@@ -45,7 +45,7 @@ export default {
             });     
         },
         addToMyBooks() {
-            
+            this.$store.dispatch('addBook', this.searchResult);
         }
     }
 }

@@ -26,10 +26,13 @@ export const store = new Vuex.Store({
     },
     actions: {
         updateSearchResults({ commit }, searchResults) {
-            commit('UPDATE_SEARCH_RESULTS', searchResults);
+            commit(UPDATE_SEARCH_RESULTS, searchResults);
         },
         clearSearchResults({ commit }) {
-            commit('DELETE_SEARCH_RESULTS');
+            commit(DELETE_SEARCH_RESULTS);
+        },
+        addBook({ commit }, book) {
+            commit(ADD_BOOK, book);
         }
     },
     getters: {
