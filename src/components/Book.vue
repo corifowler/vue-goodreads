@@ -45,7 +45,7 @@ export default {
             });
         },
         removeBookFromList() {
-            
+            this.$store.dispatch('deleteBook', this.bookInfo);
         }
     }
 }

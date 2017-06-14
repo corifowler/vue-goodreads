@@ -7,6 +7,7 @@ export const
     UPDATE_SEARCH_RESULTS = 'UPDATE_SEARCH_RESULTS',
     DELETE_SEARCH_RESULTS = 'DELETE_SEARCH_RESULTS',
     ADD_BOOK = 'ADD_BOOK',
+    DELETE_BOOK = 'DELETE_BOOK',
     UPDATE_SELECTED_BOOK = 'UPDATE_SELECTED_BOOK';
 
 export const store = new Vuex.Store({
@@ -25,6 +26,14 @@ export const store = new Vuex.Store({
         ADD_BOOK(state, newBook) {
             state.books.push(newBook);
         },
+        DELETE_BOOK(state, deletedBook) {
+            let deletedId = deletedBook.id.toString();
+            state.books.forEach((book, index) => {
+                if (deletedId === book.id.toString()) {
+                    state.books.splice(index, 1);
+                }
+            });
+        },
         UPDATE_SELECTED_BOOK(state, selectedBook) {
             state.selectedBook = selectedBook;
         }
@@ -41,6 +50,9 @@ export const store = new Vuex.Store({
         },
         updateSelectedBook({ commit }, selectedBook) {
             commit(UPDATE_SELECTED_BOOK, selectedBook);
+        },
+        deleteBook({ commit }, book) {
+            commit(DELETE_BOOK, book);
         }
     },
     getters: {
