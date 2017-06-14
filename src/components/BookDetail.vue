@@ -5,6 +5,7 @@
             <div class="title">{{ selectedBook.title }}</div>
             <div class="author">by {{ author }}</div>
             <div v-html="selectedBook.description" class="description"></div>
+            <button v-on:click="addToMyBooks()" class="button">ADD TO MY BOOKS</button>
         </div>
     </div>
 </template>
@@ -27,7 +28,8 @@ export default {
         };
     },
     computed: mapGetters([
-        'selectedBook'
+        'selectedBook',
+        'searchResults'
     ]),
     methods: {
         getAuthorName(selectedBook) {
@@ -51,6 +53,18 @@ export default {
             .catch(err => {
                 console.log('e', err);
             });
+        },
+        addToMyBooks() {
+            if (this.searchResults.length) {
+                let bookResult = this.searchResults.find(result => {
+                    return result.best_book.id.toString() === this.id;
+                });
+                
+                if (bookResult) {
+                    console.log(bookResult);
+                    this.$store.dispatch('addBook', bookResult.best_book);
+                }
+            }
         }
     },
     mounted() {
@@ -94,10 +108,23 @@ export default {
     .author {
         font-style: italic;
         align-self: flex-start;
+        padding-top: 0.5em;
     }
 
     .description {
         align-self: flex-start;
         padding: 1em 0;
+    }
+
+    .button {
+        color: #35495e;
+        border: 1px solid #35495e;
+        background: none;
+        border-radius: 8px;
+        margin: 0 0.25em;
+        font-size: 0.85em;
+        font-family: inherit;
+        width: 11em;
+        padding: 0.25em;
     }
 </style>
