@@ -25,9 +25,6 @@ export default {
     computed: mapGetters([
         'books'
     ]),
-    mounted() {
-        console.log(this);
-    },
     components: {
         book
     }

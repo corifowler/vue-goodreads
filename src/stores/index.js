@@ -6,12 +6,14 @@ Vue.use(Vuex);
 export const
     UPDATE_SEARCH_RESULTS = 'UPDATE_SEARCH_RESULTS',
     DELETE_SEARCH_RESULTS = 'DELETE_SEARCH_RESULTS',
-    ADD_BOOK = 'ADD_BOOK';
+    ADD_BOOK = 'ADD_BOOK',
+    UPDATE_SELECTED_BOOK = 'UPDATE_SELECTED_BOOK';
 
 export const store = new Vuex.Store({
     state: {
         searchResults: [],
-        books: []
+        books: [],
+        selectedBook: null
     },
     mutations: {
         UPDATE_SEARCH_RESULTS(state, newResults) {
@@ -22,6 +24,9 @@ export const store = new Vuex.Store({
         },
         ADD_BOOK(state, newBook) {
             state.books.push(newBook);
+        },
+        UPDATE_SELECTED_BOOK(state, selectedBook) {
+            state.selectedBook = selectedBook;
         }
     },
     actions: {
@@ -33,10 +38,14 @@ export const store = new Vuex.Store({
         },
         addBook({ commit }, book) {
             commit(ADD_BOOK, book);
+        },
+        updateSelectedBook({ commit }, selectedBook) {
+            commit(UPDATE_SELECTED_BOOK, selectedBook);
         }
     },
     getters: {
         books: state => state.books,
-        searchResults: state => state.searchResults
+        searchResults: state => state.searchResults,
+        selectedBook: state => state.selectedBook
     }
 });
