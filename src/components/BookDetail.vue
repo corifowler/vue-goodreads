@@ -137,5 +137,6 @@ export default {
         font-family: inherit;
         width: 11em;
         padding: 0.25em;
+        cursor: pointer;
     }
 </style>
