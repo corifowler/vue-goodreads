@@ -5,7 +5,7 @@
             <div class="title">{{ selectedBook.title }}</div>
             <div class="author">by {{ author }}</div>
             <div v-html="selectedBook.description" class="description"></div>
-            <button v-on:click="addToMyBooks()" class="button">ADD TO MY BOOKS</button>
+            <button v-if="!onBooksList" v-on:click="addToMyBooks()" class="button">ADD TO MY BOOKS</button>
         </div>
     </div>
 </template>
@@ -24,12 +24,14 @@ export default {
     data () {
         return {
             author: '',
-            id: ''
+            id: '',
+            onBooksList: false
         };
     },
     computed: mapGetters([
         'selectedBook',
-        'searchResults'
+        'searchResults',
+        'books'
     ]),
     methods: {
         getAuthorName(selectedBook) {
@@ -61,15 +63,22 @@ export default {
                 });
                 
                 if (bookResult) {
-                    console.log(bookResult);
                     this.$store.dispatch('addBook', bookResult.best_book);
+                    this.checkBookList();
                 }
             }
+        },
+        checkBookList() {
+            let bookOnList = this.books.find(book => {
+                return book.id.toString() === this.id;
+            });
+
+            this.onBooksList = bookOnList ? true : false;
         }
     },
     mounted() {
         this.id = this.$route.params.id;
-        console.log(this.$route.params);
+        this.checkBookList();
         if (this.selectedBook) {
             this.getAuthorName(this.selectedBook);
         } else {
@@ -84,6 +93,7 @@ export default {
     #book-detail {
         display: flex;
         align-items: center;
+        justify-content: center;
         margin-top: 10em;
     }
 
@@ -92,10 +102,11 @@ export default {
         flex-direction: column;
         margin-left: 1em;
         text-align: left;
+        max-width: 60em;
     }
 
     .book-image {
-        width: 55em;
+        width: 250px;
         margin: 0 2em;
     }
 

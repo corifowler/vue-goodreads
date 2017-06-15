@@ -7,7 +7,7 @@
         </div>
         <div class="button-options">
             <button v-on:click="getBookInfo()">MORE INFO</button>
-            <button v-on:click="addToMyBooks()">ADD TO MY BOOKS</button>
+            <button v-if="!onBooksList" v-on:click="addToMyBooks()">ADD TO MY BOOKS</button>
         </div>
     </div>
 </template>
@@ -17,6 +17,7 @@ import Vue from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import Router from 'vue-router';
+import { mapGetters } from 'vuex';
 import * as X2JS from 'x2js';
 
 Vue.use(Router, VueAxios, axios);
@@ -26,9 +27,13 @@ export default {
     data () {
         return {
             searchResult: this.result.best_book,
-            id: this.result.best_book.id.toString()
+            id: this.result.best_book.id.toString(),
+            onBooksList: false
         };
     },
+    computed:mapGetters([
+        'books'
+    ]),
     props: {
         result: Object
     },
@@ -50,7 +55,18 @@ export default {
         },
         addToMyBooks() {
             this.$store.dispatch('addBook', this.searchResult);
+            this.checkBookList();
+        },
+        checkBookList() {
+            let bookOnList = this.books.find(book => {
+                return book.id.toString() === this.id;
+            });
+
+            this.onBooksList = bookOnList ? true : false;
         }
+    },
+    mounted() {
+        this.checkBookList();
     }
 }
 </script>

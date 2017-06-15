@@ -28,11 +28,14 @@ export const store = new Vuex.Store({
         },
         DELETE_BOOK(state, deletedBook) {
             let deletedId = deletedBook.id.toString();
-            state.books.forEach((book, index) => {
-                if (deletedId === book.id.toString()) {
-                    state.books.splice(index, 1);
+
+            let newBooks = state.books.filter(book => {
+                if (book.id.toString() !== deletedId) {
+                    return book;
                 }
             });
+
+            state.books = newBooks;
         },
         UPDATE_SELECTED_BOOK(state, selectedBook) {
             state.selectedBook = selectedBook;

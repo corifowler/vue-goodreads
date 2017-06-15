@@ -16,6 +16,7 @@
 import Vue from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
+import Router from 'vue-router';
 import * as X2JS from 'x2js';
 
 export default {
@@ -38,7 +39,8 @@ export default {
             Vue.axios.get(apiUrl).then(response => {
                 let x2js = new X2JS();
                 let res = x2js.xml2js(response.data);
-                console.log(res);
+                this.$store.dispatch('updateSelectedBook', res.GoodreadsResponse.book);
+                this.$router.push({ name: 'Book Detail', params: { id: this.id } });
             })
             .catch(err => {
                 console.log('e', err);
@@ -89,5 +91,6 @@ export default {
         margin: 0 0.25em;
         font-size: 0.85em;
         font-family: inherit;
+        padding: 0.25em;
     }
 </style>
