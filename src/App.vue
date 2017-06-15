@@ -2,7 +2,9 @@
   <div id="app">
     <toolbar></toolbar>
     <!--<img src="./assets/logo.png">-->
-    <router-view></router-view>
+    <div class="router-container">
+		<router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -20,13 +22,17 @@ export default {
 </script>
 
 <style>
-#app {
-  /*font-family: 'Avenir', Helvetica, Arial, sans-serif;*/
-  font-family: 'Lato', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 1em;
-}
+	#app {
+	/*font-family: 'Avenir', Helvetica, Arial, sans-serif;*/
+	font-family: 'Lato', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-align: center;
+	color: #2c3e50;
+	/*margin-top: 1em;*/
+	}
+
+	.router-container {
+		padding: 2em;
+	}
 </style>

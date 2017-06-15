@@ -114,5 +114,6 @@ export default {
         margin: 0 0.25em;
         font-size: 0.85em;
         font-family: inherit;
+        padding: 0.25em;
     }
 </style>

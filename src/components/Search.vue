@@ -3,12 +3,14 @@
         <h1>FIND A BOOK</h1>
         <div class="search-form">
             <input v-model="searchTerm" class="search-input">
-            <button v-on:click="search()" class="search-button">SEARCH</button>
+            <button v-on:click="search()" class="search-button">
+                <icon name="search"></icon>
+            </button>
         </div>
         <div v-if="searchResults" class="search-results">
             <searchResult v-for="(result, index) in searchResults" v-bind:key="index" :result="result"></searchResult>
         </div>
-        <div v-else>
+        <div v-else class="no-result-text">
             NO RESULTS
         </div>
     </div>
@@ -20,6 +22,8 @@ import axios from 'axios';
 import VueAxios from 'vue-axios';
 import * as X2JS from 'x2js';
 import { mapGetters, mapActions } from 'vuex';
+import 'vue-awesome/icons/search';
+import Icon from 'vue-awesome/components/Icon'
 
 import searchResult from './SearchResult';
 
@@ -64,7 +68,8 @@ export default {
         }
     },
     components: {
-        searchResult
+        searchResult,
+        Icon
     },
     created() {
         this.clearSearchResults();
@@ -81,7 +86,7 @@ export default {
     }
     
     .search-form button, input {
-        margin: 0 1em;
+        margin: 0 0.5em;
     }
 
     .search-input {
@@ -100,5 +105,15 @@ export default {
 
     .search-results {
         margin-top: 1em;
+    }
+
+    .fa-icon {
+        width: auto;
+        height: 2em;
+    }
+
+    .no-result-text {
+        margin-top: 1em;
+        font-weight: bold;
     }
 </style>
