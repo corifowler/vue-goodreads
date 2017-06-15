@@ -1,8 +1,8 @@
 <template>
     <div id="books">
         <h1>MY BOOKS</h1>
-        <div v-if="books" class="book-list">
-            <book v-for="(book, index) in books" v-bind:key="index" :book="book"></book>
+        <div v-if="books.length" class="book-list">
+            <book v-for="book in books" v-bind:key="book.id" :book="book"></book>
         </div>
         <div v-else>
             You haven't added any books yet.

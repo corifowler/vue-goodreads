@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <toolbar></toolbar>
-    <!--<img src="./assets/logo.png">-->
     <div class="router-container">
 		<router-view></router-view>
     </div>
@@ -33,6 +32,6 @@ export default {
 	}
 
 	.router-container {
-		padding: 2em;
+		padding: 2.5em;
 	}
 </style>
