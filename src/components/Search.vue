@@ -101,6 +101,7 @@ export default {
         background: none;
         border: none;
         color: #35495e;
+        cursor: pointer;
     }
 
     .search-results {
